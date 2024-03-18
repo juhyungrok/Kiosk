@@ -3,8 +3,8 @@ import Cart from 'components/Main/Cart';
 import CategoryNavbar from 'components/Navbar';
 import menuOrderReducer, { MenuOrderAction } from 'menuOrderReducer';
 import { Dispatch, SetStateAction, useMemo, useReducer, useState } from 'react';
-import { formatAllCategories, formatAllMenus, formatOrderList } from 'utils';
-import { CategoryInfo, MenuOrder } from './types';
+import { formatAllCategories, formatAllProducts, formatMenuOptionOrderList } from 'utils';
+import { CategoryInfo, OrderSuccessInfo, ProductOrder } from './types';
 
 interface MainPageProps {
   allMenus: CategoryInfo[];
@@ -14,7 +14,7 @@ export default function MainPage({ allMenus }: MainPageProps) {
   const [selectedCategoryId, setSelectedCategoryId]: [string, Dispatch<SetStateAction<string>>] = useState(
     allMenus[0].categoryId
   );
-  const [orderList, dispatch]: [MenuOrder[], Dispatch<MenuOrderAction>] = useReducer(menuOrderReducer, []);
+  const [orderList, dispatch]: [OrderSuccessInfo[], Dispatch<MenuOrderAction>] = useReducer(menuOrderReducer, []);
 
   const categoryNavbarInfo = useMemo(
     () =>
@@ -24,9 +24,9 @@ export default function MainPage({ allMenus }: MainPageProps) {
     [allMenus]
   );
   const formattedMenuData = useMemo(() => formatAllCategories(allMenus), [allMenus]);
-  const formattedMenus = useMemo(() => formatAllMenus(allMenus), [allMenus]);
+  const formattedMenus = useMemo(() => formatAllProducts(allMenus), [allMenus]);
   const currentMenus = formattedMenuData[selectedCategoryId].menus;
-  const formattedOrderList = useMemo(() => formatOrderList(orderList), [orderList]);
+  const formattedOrderList = useMemo(() => formatMenuOptionOrderList(orderList), [orderList]);
   const orderMenus = formattedOrderList.map(order => {
     const { menuId, amount } = order;
     const menu = formattedMenus[menuId];
@@ -35,7 +35,7 @@ export default function MainPage({ allMenus }: MainPageProps) {
   const isOrderListEmpty = orderList.length === 0;
 
   const handleCategoryClick = (clickCategoryId: string) => setSelectedCategoryId(clickCategoryId);
-  const handleAddOrder = (menuOrder: MenuOrder) => dispatch({ type: 'ADD_ORDER', payload: { newOrder: menuOrder } });
+  const handleAddOrder = (menuOrder: ProductOrder) => dispatch({ type: 'ADD_ORDER', payload: { newOrder: menuOrder } });
   const handleRemoveOrder = (menuId: number) => dispatch({ type: 'REMOVE_ORDER', payload: { menuId: menuId } });
   const handleRemoveAllOrders = () => dispatch({ type: 'RESET' });
 

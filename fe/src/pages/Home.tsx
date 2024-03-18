@@ -1,11 +1,11 @@
 import { LoadingIndicator } from 'components/LoadingIndicator/LoadingIndicator';
-import Main from 'components/Main';
-import Cart from 'components/Main/Cart';
+import Main from '../components/Main';
+import Cart from '../components/Main/Cart';
 import CategoryNavbar from 'components/Navbar';
 import useProducts from 'hooks/useProducts';
 import menuOrderReducer from 'menuOrderReducer';
 import { useEffect, useReducer, useRef, useState } from 'react';
-import { formatAllCategories, formatProducts } from 'utils';
+import { formatAllCategories, formatAllProducts } from 'utils';
 import styles from './Home.module.css';
 import { CategoryInfo, ProductOrder } from './types';
 
@@ -24,7 +24,7 @@ export default function Home({ navigate }: HomeProps) {
     return { categoryId: category.categoryId, categoryName: category.categoryName };
   });
   const formattedMenuData = formatAllCategories(products);
-  const formattedMenus = formatProducts(products);
+  const formattedMenus = formatAllProducts(products);
   const currentMenus = selectedCategoryId && formattedMenuData[selectedCategoryId];
   const isOrderListEmpty = orderList.length === 0;
 

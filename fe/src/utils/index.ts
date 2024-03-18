@@ -1,6 +1,6 @@
 import { Categories, CategoryInfo, OrderItem, ProductInfo, ProductOrder, Products } from 'pages/types';
 
-export const formatProducts = (menuData: CategoryInfo[]) => {
+export const formatAllProducts = (menuData: CategoryInfo[]) => {
   const products: Products = {};
 
   menuData.forEach((category: CategoryInfo) => {
