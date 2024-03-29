@@ -26,17 +26,13 @@ public class PaymentRequestDto {
         private List<CartInDto> orderProducts;
         @NonNull
         private Integer totalPrice;
-        @NonNull
-        private Integer receivedPrice;
 
         public Payment toEntity(Long orderId) {
             return Payment.builder()
-                .orderId(orderId)
-                .totalPrice(this.totalPrice)
-                .receivedPrice(this.receivedPrice)
-                .remainedPrice(calculateChange(this.totalPrice, this.receivedPrice))
-                .method(CASH)
-                .build();
+                    .orderId(orderId)
+                    .totalPrice(this.totalPrice)
+                    .method(CASH)
+                    .build();
         }
     }
 
@@ -54,28 +50,27 @@ public class PaymentRequestDto {
             final int ZERO = 0;
 
             return Payment.builder()
-                .orderId(orderId)
-                .totalPrice(this.totalPrice)
-                .receivedPrice(this.totalPrice)
-                .remainedPrice(ZERO)
-                .method(CARD)
-                .build();
+                    .orderId(orderId)
+                    .totalPrice(this.totalPrice)
+                    .method(CARD)
+                    .build();
         }
     }
 
-    private static Integer calculateChange(final Integer totalPrice, final Integer receivedPrice) {
-        if (totalPrice > receivedPrice) {
-            throw new RuntimeException("받은 금액보다 총액이 더 큽니다.");
-        }
+    // private static Integer calculateChange(final Integer totalPrice, final
+    // Integer receivedPrice) {
+    // if (totalPrice > receivedPrice) {
+    // throw new RuntimeException("받은 금액보다 총액이 더 큽니다.");
+    // }
 
-        return receivedPrice - totalPrice;
-    }
+    // return receivedPrice - totalPrice;
+    // }
 
     @Builder
     @NoArgsConstructor
     @AllArgsConstructor
     @Getter
-    @Setter
+
     public static class CartInDto {
 
         private Long productId;
@@ -86,13 +81,13 @@ public class PaymentRequestDto {
 
         public OrderProduct toEntity(Long orderId) {
             return OrderProduct.builder()
-                .orderId(orderId)
-                .amount(this.amount)
-                .productId(this.productId)
-                .name(this.name)
-                .size(this.size)
-                .temperature(this.temperature)
-                .build();
+                    .orderId(orderId)
+                    .amount(this.amount)
+                    .productId(this.productId)
+                    .name(this.name)
+                    .size(this.size)
+                    .temperature(this.temperature)
+                    .build();
         }
     }
 }

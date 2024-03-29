@@ -25,8 +25,8 @@ interface OrderModalProps {
   menu: MenuInfo;
   closeOrderModal: () => void;
   handleAddOrder: (menuOrder: OrderDataInfo) => void;
-  // orderList: [];
-  // setOrderList: (data: OrderDataInfo) => void;
+  orderList: [];
+  setOrderList: (data: OrderDataInfo) => void;
 }
 
 export default function OrderModal({ menu, closeOrderModal, handleAddOrder }: OrderModalProps) {
